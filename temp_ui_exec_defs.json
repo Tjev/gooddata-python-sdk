@@ -1,0 +1,2599 @@
+// ui sdk exec definitions (and resultSpecs)
+// for all examples we have:
+// - 2 metrics in columns
+// - 3 row attrs
+// - no columns attrs
+
+// no totals:
+{
+	"execution": {
+		"attributes": [
+			{
+				"label": {
+					"identifier": {
+						"id": "customer_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "7a4045fd00ac44579f52406df679435f"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "products.category",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6a003ffd14994237ba64c4a02c488429"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "product_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "75ea396d0c8b48098e31dccf8b5801d3"
+			}
+		],
+		"auxMeasures": [],
+		"filters": [
+			{
+				"relativeDateFilter": {
+					"dataset": {
+						"identifier": {
+							"id": "date",
+							"type": "dataset"
+						}
+					},
+					"from": 0,
+					"granularity": "YEAR",
+					"to": 0
+				}
+			}
+		],
+		"measures": [
+			{
+				"alias": "% Revenue per Product",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "percent_revenue_per_product",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "08d8346c1ce7438994b251991c0fbf65"
+			},
+			{
+				"alias": "Revenue",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "revenue",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "b2350c06688b4da9b3833ebcce65527f"
+			}
+		]
+	},
+	"resultSpec": {
+		"dimensions": [
+			{
+				"itemIdentifiers": [
+					"7a4045fd00ac44579f52406df679435f",
+					"6a003ffd14994237ba64c4a02c488429",
+					"75ea396d0c8b48098e31dccf8b5801d3"
+				],
+				"localIdentifier": "dim_0",
+				"sorting": [
+					{
+						"attribute": {
+							"attributeIdentifier": "7a4045fd00ac44579f52406df679435f",
+							"sortType": "DEFAULT"
+						}
+					}
+				]
+			},
+			{
+				"itemIdentifiers": [
+					"measureGroup"
+				],
+				"localIdentifier": "dim_1"
+			}
+		],
+		"totals": []
+	},
+	"settings": {}
+}
+
+// single measure grand total (SUM)
+{
+	"execution": {
+		"attributes": [
+			{
+				"label": {
+					"identifier": {
+						"id": "customer_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "7a4045fd00ac44579f52406df679435f"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "products.category",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6a003ffd14994237ba64c4a02c488429"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "product_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "75ea396d0c8b48098e31dccf8b5801d3"
+			}
+		],
+		"auxMeasures": [],
+		"filters": [
+			{
+				"relativeDateFilter": {
+					"dataset": {
+						"identifier": {
+							"id": "date",
+							"type": "dataset"
+						}
+					},
+					"from": 0,
+					"granularity": "YEAR",
+					"to": 0
+				}
+			}
+		],
+		"measures": [
+			{
+				"alias": "% Revenue per Product",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "percent_revenue_per_product",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "08d8346c1ce7438994b251991c0fbf65"
+			},
+			{
+				"alias": "Revenue",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "revenue",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "b2350c06688b4da9b3833ebcce65527f"
+			}
+		]
+	},
+	"resultSpec": {
+		"dimensions": [
+			{
+				"itemIdentifiers": [
+					"7a4045fd00ac44579f52406df679435f",
+					"6a003ffd14994237ba64c4a02c488429",
+					"75ea396d0c8b48098e31dccf8b5801d3"
+				],
+				"localIdentifier": "dim_0",
+				"sorting": [
+					{
+						"attribute": {
+							"attributeIdentifier": "7a4045fd00ac44579f52406df679435f",
+							"sortType": "DEFAULT"
+						}
+					}
+				]
+			},
+			{
+				"itemIdentifiers": [
+					"measureGroup"
+				],
+				"localIdentifier": "dim_1"
+			}
+		],
+		"totals": [
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			}
+		]
+	},
+	"settings": {}
+}
+
+// two row-level grand totals (AVG and SUM) for col measures
+{
+	"execution": {
+		"attributes": [
+			{
+				"label": {
+					"identifier": {
+						"id": "customer_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "7a4045fd00ac44579f52406df679435f"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "products.category",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6a003ffd14994237ba64c4a02c488429"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "product_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "75ea396d0c8b48098e31dccf8b5801d3"
+			}
+		],
+		"auxMeasures": [],
+		"filters": [
+			{
+				"relativeDateFilter": {
+					"dataset": {
+						"identifier": {
+							"id": "date",
+							"type": "dataset"
+						}
+					},
+					"from": 0,
+					"granularity": "YEAR",
+					"to": 0
+				}
+			}
+		],
+		"measures": [
+			{
+				"alias": "% Revenue per Product",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "percent_revenue_per_product",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "08d8346c1ce7438994b251991c0fbf65"
+			},
+			{
+				"alias": "Revenue",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "revenue",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "b2350c06688b4da9b3833ebcce65527f"
+			}
+		]
+	},
+	"resultSpec": {
+		"dimensions": [
+			{
+				"itemIdentifiers": [
+					"7a4045fd00ac44579f52406df679435f",
+					"6a003ffd14994237ba64c4a02c488429",
+					"75ea396d0c8b48098e31dccf8b5801d3"
+				],
+				"localIdentifier": "dim_0",
+				"sorting": [
+					{
+						"attribute": {
+							"attributeIdentifier": "7a4045fd00ac44579f52406df679435f",
+							"sortType": "DEFAULT"
+						}
+					}
+				]
+			},
+			{
+				"itemIdentifiers": [
+					"measureGroup"
+				],
+				"localIdentifier": "dim_1"
+			}
+		],
+		"totals": [
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_avg_08d8346c1ce7438994b251991c0fbf65_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			}
+		]
+	},
+	"settings": {}
+}
+
+// two row-level grand totals (AVG and SUM) and one running total (SUM)
+{
+	"execution": {
+		"attributes": [
+			{
+				"label": {
+					"identifier": {
+						"id": "customer_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "7a4045fd00ac44579f52406df679435f"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "products.category",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6a003ffd14994237ba64c4a02c488429"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "product_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "75ea396d0c8b48098e31dccf8b5801d3"
+			}
+		],
+		"auxMeasures": [],
+		"filters": [
+			{
+				"relativeDateFilter": {
+					"dataset": {
+						"identifier": {
+							"id": "date",
+							"type": "dataset"
+						}
+					},
+					"from": 0,
+					"granularity": "YEAR",
+					"to": 0
+				}
+			}
+		],
+		"measures": [
+			{
+				"alias": "% Revenue per Product",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "percent_revenue_per_product",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "08d8346c1ce7438994b251991c0fbf65"
+			},
+			{
+				"alias": "Revenue",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "revenue",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "b2350c06688b4da9b3833ebcce65527f"
+			}
+		]
+	},
+	"resultSpec": {
+		"dimensions": [
+			{
+				"itemIdentifiers": [
+					"7a4045fd00ac44579f52406df679435f",
+					"6a003ffd14994237ba64c4a02c488429",
+					"75ea396d0c8b48098e31dccf8b5801d3"
+				],
+				"localIdentifier": "dim_0",
+				"sorting": [
+					{
+						"attribute": {
+							"attributeIdentifier": "7a4045fd00ac44579f52406df679435f",
+							"sortType": "DEFAULT"
+						}
+					}
+				]
+			},
+			{
+				"itemIdentifiers": [
+					"measureGroup"
+				],
+				"localIdentifier": "dim_1"
+			}
+		],
+		"totals": [
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_6a003ffd14994237ba64c4a02c488429_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_avg_08d8346c1ce7438994b251991c0fbf65_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			}
+		]
+	},
+	"settings": {}
+}
+
+// two row-level grand totals (AVG and SUM) and two running totals (SUM and AVG) on different attrs (groupby level)
+{
+	"execution": {
+		"attributes": [
+			{
+				"label": {
+					"identifier": {
+						"id": "customer_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "7a4045fd00ac44579f52406df679435f"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "products.category",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6a003ffd14994237ba64c4a02c488429"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "product_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "75ea396d0c8b48098e31dccf8b5801d3"
+			}
+		],
+		"auxMeasures": [],
+		"filters": [
+			{
+				"relativeDateFilter": {
+					"dataset": {
+						"identifier": {
+							"id": "date",
+							"type": "dataset"
+						}
+					},
+					"from": 0,
+					"granularity": "YEAR",
+					"to": 0
+				}
+			}
+		],
+		"measures": [
+			{
+				"alias": "% Revenue per Product",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "percent_revenue_per_product",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "08d8346c1ce7438994b251991c0fbf65"
+			},
+			{
+				"alias": "Revenue",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "revenue",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "b2350c06688b4da9b3833ebcce65527f"
+			}
+		]
+	},
+	"resultSpec": {
+		"dimensions": [
+			{
+				"itemIdentifiers": [
+					"7a4045fd00ac44579f52406df679435f",
+					"6a003ffd14994237ba64c4a02c488429",
+					"75ea396d0c8b48098e31dccf8b5801d3"
+				],
+				"localIdentifier": "dim_0",
+				"sorting": [
+					{
+						"attribute": {
+							"attributeIdentifier": "7a4045fd00ac44579f52406df679435f",
+							"sortType": "DEFAULT"
+						}
+					}
+				]
+			},
+			{
+				"itemIdentifiers": [
+					"measureGroup"
+				],
+				"localIdentifier": "dim_1"
+			}
+		],
+		"totals": [
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_6a003ffd14994237ba64c4a02c488429_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_avg_08d8346c1ce7438994b251991c0fbf65_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_avg_b2350c06688b4da9b3833ebcce65527f_by_75ea396d0c8b48098e31dccf8b5801d3_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f",
+							"6a003ffd14994237ba64c4a02c488429"
+						]
+					}
+				]
+			}
+		]
+	},
+	"settings": {}
+}
+
+// no totals + one more col attr
+{
+	"execution": {
+		"attributes": [
+			{
+				"label": {
+					"identifier": {
+						"id": "customer_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "7a4045fd00ac44579f52406df679435f"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "products.category",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6a003ffd14994237ba64c4a02c488429"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "product_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "75ea396d0c8b48098e31dccf8b5801d3"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "state",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "a0b3aca54a2c43a9bb5d6d4f8d700cfc"
+			}
+		],
+		"auxMeasures": [],
+		"filters": [
+			{
+				"relativeDateFilter": {
+					"dataset": {
+						"identifier": {
+							"id": "date",
+							"type": "dataset"
+						}
+					},
+					"from": 0,
+					"granularity": "YEAR",
+					"to": 0
+				}
+			}
+		],
+		"measures": [
+			{
+				"alias": "% Revenue per Product",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "percent_revenue_per_product",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "08d8346c1ce7438994b251991c0fbf65"
+			},
+			{
+				"alias": "Revenue",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "revenue",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "b2350c06688b4da9b3833ebcce65527f"
+			}
+		]
+	},
+	"resultSpec": {
+		"dimensions": [
+			{
+				"itemIdentifiers": [
+					"7a4045fd00ac44579f52406df679435f",
+					"6a003ffd14994237ba64c4a02c488429",
+					"75ea396d0c8b48098e31dccf8b5801d3"
+				],
+				"localIdentifier": "dim_0",
+				"sorting": [
+					{
+						"attribute": {
+							"attributeIdentifier": "7a4045fd00ac44579f52406df679435f",
+							"sortType": "DEFAULT"
+						}
+					}
+				]
+			},
+			{
+				"itemIdentifiers": [
+					"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+					"measureGroup"
+				],
+				"localIdentifier": "dim_1"
+			}
+		],
+		"totals": []
+	},
+	"settings": {}
+}
+
+// single row-level grand total (SUM) + one more col attr
+{
+	"execution": {
+		"attributes": [
+			{
+				"label": {
+					"identifier": {
+						"id": "customer_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "7a4045fd00ac44579f52406df679435f"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "products.category",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6a003ffd14994237ba64c4a02c488429"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "product_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "75ea396d0c8b48098e31dccf8b5801d3"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "state",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "a0b3aca54a2c43a9bb5d6d4f8d700cfc"
+			}
+		],
+		"auxMeasures": [],
+		"filters": [
+			{
+				"relativeDateFilter": {
+					"dataset": {
+						"identifier": {
+							"id": "date",
+							"type": "dataset"
+						}
+					},
+					"from": 0,
+					"granularity": "YEAR",
+					"to": 0
+				}
+			}
+		],
+		"measures": [
+			{
+				"alias": "% Revenue per Product",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "percent_revenue_per_product",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "08d8346c1ce7438994b251991c0fbf65"
+			},
+			{
+				"alias": "Revenue",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "revenue",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "b2350c06688b4da9b3833ebcce65527f"
+			}
+		]
+	},
+	"resultSpec": {
+		"dimensions": [
+			{
+				"itemIdentifiers": [
+					"7a4045fd00ac44579f52406df679435f",
+					"6a003ffd14994237ba64c4a02c488429",
+					"75ea396d0c8b48098e31dccf8b5801d3"
+				],
+				"localIdentifier": "dim_0",
+				"sorting": [
+					{
+						"attribute": {
+							"attributeIdentifier": "7a4045fd00ac44579f52406df679435f",
+							"sortType": "DEFAULT"
+						}
+					}
+				]
+			},
+			{
+				"itemIdentifiers": [
+					"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+					"measureGroup"
+				],
+				"localIdentifier": "dim_1"
+			}
+		],
+		"totals": [
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					}
+				]
+			}
+		]
+	},
+	"settings": {}
+}
+
+// two row-level grand totals (SUM and AVG) + one more col attr
+{
+	"execution": {
+		"attributes": [
+			{
+				"label": {
+					"identifier": {
+						"id": "customer_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "7a4045fd00ac44579f52406df679435f"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "products.category",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6a003ffd14994237ba64c4a02c488429"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "product_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "75ea396d0c8b48098e31dccf8b5801d3"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "state",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "a0b3aca54a2c43a9bb5d6d4f8d700cfc"
+			}
+		],
+		"auxMeasures": [],
+		"filters": [
+			{
+				"relativeDateFilter": {
+					"dataset": {
+						"identifier": {
+							"id": "date",
+							"type": "dataset"
+						}
+					},
+					"from": 0,
+					"granularity": "YEAR",
+					"to": 0
+				}
+			}
+		],
+		"measures": [
+			{
+				"alias": "% Revenue per Product",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "percent_revenue_per_product",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "08d8346c1ce7438994b251991c0fbf65"
+			},
+			{
+				"alias": "Revenue",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "revenue",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "b2350c06688b4da9b3833ebcce65527f"
+			}
+		]
+	},
+	"resultSpec": {
+		"dimensions": [
+			{
+				"itemIdentifiers": [
+					"7a4045fd00ac44579f52406df679435f",
+					"6a003ffd14994237ba64c4a02c488429",
+					"75ea396d0c8b48098e31dccf8b5801d3"
+				],
+				"localIdentifier": "dim_0",
+				"sorting": [
+					{
+						"attribute": {
+							"attributeIdentifier": "7a4045fd00ac44579f52406df679435f",
+							"sortType": "DEFAULT"
+						}
+					}
+				]
+			},
+			{
+				"itemIdentifiers": [
+					"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+					"measureGroup"
+				],
+				"localIdentifier": "dim_1"
+			}
+		],
+		"totals": [
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_avg_08d8346c1ce7438994b251991c0fbf65_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					}
+				]
+			}
+		]
+	},
+	"settings": {}
+}
+
+// two row-level grand totals (SUM and AVG) and one running total (SUM) + one more col attr
+{
+	"execution": {
+		"attributes": [
+			{
+				"label": {
+					"identifier": {
+						"id": "customer_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "7a4045fd00ac44579f52406df679435f"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "products.category",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6a003ffd14994237ba64c4a02c488429"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "product_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "75ea396d0c8b48098e31dccf8b5801d3"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "state",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "a0b3aca54a2c43a9bb5d6d4f8d700cfc"
+			}
+		],
+		"auxMeasures": [],
+		"filters": [
+			{
+				"relativeDateFilter": {
+					"dataset": {
+						"identifier": {
+							"id": "date",
+							"type": "dataset"
+						}
+					},
+					"from": 0,
+					"granularity": "YEAR",
+					"to": 0
+				}
+			}
+		],
+		"measures": [
+			{
+				"alias": "% Revenue per Product",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "percent_revenue_per_product",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "08d8346c1ce7438994b251991c0fbf65"
+			},
+			{
+				"alias": "Revenue",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "revenue",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "b2350c06688b4da9b3833ebcce65527f"
+			}
+		]
+	},
+	"resultSpec": {
+		"dimensions": [
+			{
+				"itemIdentifiers": [
+					"7a4045fd00ac44579f52406df679435f",
+					"6a003ffd14994237ba64c4a02c488429",
+					"75ea396d0c8b48098e31dccf8b5801d3"
+				],
+				"localIdentifier": "dim_0",
+				"sorting": [
+					{
+						"attribute": {
+							"attributeIdentifier": "7a4045fd00ac44579f52406df679435f",
+							"sortType": "DEFAULT"
+						}
+					}
+				]
+			},
+			{
+				"itemIdentifiers": [
+					"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+					"measureGroup"
+				],
+				"localIdentifier": "dim_1"
+			}
+		],
+		"totals": [
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_6a003ffd14994237ba64c4a02c488429_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_avg_08d8346c1ce7438994b251991c0fbf65_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					}
+				]
+			}
+		]
+	},
+	"settings": {}
+}
+
+// two row-level grand totals (SUM and AVG), one col-level grand total (SUM), and one running total (SUM) + one more col attr
+{
+	"execution": {
+		"attributes": [
+			{
+				"label": {
+					"identifier": {
+						"id": "customer_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "7a4045fd00ac44579f52406df679435f"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "products.category",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6a003ffd14994237ba64c4a02c488429"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "product_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "75ea396d0c8b48098e31dccf8b5801d3"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "state",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "a0b3aca54a2c43a9bb5d6d4f8d700cfc"
+			}
+		],
+		"auxMeasures": [],
+		"filters": [
+			{
+				"relativeDateFilter": {
+					"dataset": {
+						"identifier": {
+							"id": "date",
+							"type": "dataset"
+						}
+					},
+					"from": 0,
+					"granularity": "YEAR",
+					"to": 0
+				}
+			}
+		],
+		"measures": [
+			{
+				"alias": "% Revenue per Product",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "percent_revenue_per_product",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "08d8346c1ce7438994b251991c0fbf65"
+			},
+			{
+				"alias": "Revenue",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "revenue",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "b2350c06688b4da9b3833ebcce65527f"
+			}
+		]
+	},
+	"resultSpec": {
+		"dimensions": [
+			{
+				"itemIdentifiers": [
+					"7a4045fd00ac44579f52406df679435f",
+					"6a003ffd14994237ba64c4a02c488429",
+					"75ea396d0c8b48098e31dccf8b5801d3"
+				],
+				"localIdentifier": "dim_0",
+				"sorting": [
+					{
+						"attribute": {
+							"attributeIdentifier": "7a4045fd00ac44579f52406df679435f",
+							"sortType": "DEFAULT"
+						}
+					}
+				]
+			},
+			{
+				"itemIdentifiers": [
+					"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+					"measureGroup"
+				],
+				"localIdentifier": "dim_1"
+			}
+		],
+		"totals": [
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_6a003ffd14994237ba64c4a02c488429_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_avg_08d8346c1ce7438994b251991c0fbf65_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_a0b3aca54a2c43a9bb5d6d4f8d700cfc_1",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f",
+							"6a003ffd14994237ba64c4a02c488429",
+							"75ea396d0c8b48098e31dccf8b5801d3"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "subtotal_column_sum_b2350c06688b4da9b3833ebcce65527f_by_6a003ffd14994237ba64c4a02c488429_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_of_totals_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_1",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			}
+		]
+	},
+	"settings": {}
+}
+
+// two row-level grand totals (SUM and AVG), two col-level grand totals (SUM and AVG), and one row-level running total (SUM) + one more col attr
+{
+	"execution": {
+		"attributes": [
+			{
+				"label": {
+					"identifier": {
+						"id": "customer_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "7a4045fd00ac44579f52406df679435f"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "products.category",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6a003ffd14994237ba64c4a02c488429"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "product_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "75ea396d0c8b48098e31dccf8b5801d3"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "state",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "a0b3aca54a2c43a9bb5d6d4f8d700cfc"
+			}
+		],
+		"auxMeasures": [],
+		"filters": [
+			{
+				"relativeDateFilter": {
+					"dataset": {
+						"identifier": {
+							"id": "date",
+							"type": "dataset"
+						}
+					},
+					"from": 0,
+					"granularity": "YEAR",
+					"to": 0
+				}
+			}
+		],
+		"measures": [
+			{
+				"alias": "% Revenue per Product",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "percent_revenue_per_product",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "08d8346c1ce7438994b251991c0fbf65"
+			},
+			{
+				"alias": "Revenue",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "revenue",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "b2350c06688b4da9b3833ebcce65527f"
+			}
+		]
+	},
+	"resultSpec": {
+		"dimensions": [
+			{
+				"itemIdentifiers": [
+					"7a4045fd00ac44579f52406df679435f",
+					"6a003ffd14994237ba64c4a02c488429",
+					"75ea396d0c8b48098e31dccf8b5801d3"
+				],
+				"localIdentifier": "dim_0",
+				"sorting": [
+					{
+						"attribute": {
+							"attributeIdentifier": "7a4045fd00ac44579f52406df679435f",
+							"sortType": "DEFAULT"
+						}
+					}
+				]
+			},
+			{
+				"itemIdentifiers": [
+					"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+					"measureGroup"
+				],
+				"localIdentifier": "dim_1"
+			}
+		],
+		"totals": [
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_6a003ffd14994237ba64c4a02c488429_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_avg_08d8346c1ce7438994b251991c0fbf65_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_a0b3aca54a2c43a9bb5d6d4f8d700cfc_1",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f",
+							"6a003ffd14994237ba64c4a02c488429",
+							"75ea396d0c8b48098e31dccf8b5801d3"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_avg_08d8346c1ce7438994b251991c0fbf65_by_a0b3aca54a2c43a9bb5d6d4f8d700cfc_1",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f",
+							"6a003ffd14994237ba64c4a02c488429",
+							"75ea396d0c8b48098e31dccf8b5801d3"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "subtotal_column_sum_b2350c06688b4da9b3833ebcce65527f_by_6a003ffd14994237ba64c4a02c488429_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_of_totals_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_1",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_of_totals_avg_08d8346c1ce7438994b251991c0fbf65_by_7a4045fd00ac44579f52406df679435f_2",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			}
+		]
+	},
+	"settings": {}
+}
+
+// two row-level grand totals (SUM and AVG), two col-level grand totals (SUM and AVG), and one row-level running total (SUM) + two more col attr
+{
+	"execution": {
+		"attributes": [
+			{
+				"label": {
+					"identifier": {
+						"id": "customer_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "7a4045fd00ac44579f52406df679435f"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "products.category",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6a003ffd14994237ba64c4a02c488429"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "product_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "75ea396d0c8b48098e31dccf8b5801d3"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "region",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6456e7096f2e4eaba59a0e6f531c1d81"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "state",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "a0b3aca54a2c43a9bb5d6d4f8d700cfc"
+			}
+		],
+		"auxMeasures": [],
+		"filters": [
+			{
+				"relativeDateFilter": {
+					"dataset": {
+						"identifier": {
+							"id": "date",
+							"type": "dataset"
+						}
+					},
+					"from": 0,
+					"granularity": "YEAR",
+					"to": 0
+				}
+			}
+		],
+		"measures": [
+			{
+				"alias": "% Revenue per Product",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "percent_revenue_per_product",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "08d8346c1ce7438994b251991c0fbf65"
+			},
+			{
+				"alias": "Revenue",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "revenue",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "b2350c06688b4da9b3833ebcce65527f"
+			}
+		]
+	},
+	"resultSpec": {
+		"dimensions": [
+			{
+				"itemIdentifiers": [
+					"7a4045fd00ac44579f52406df679435f",
+					"6a003ffd14994237ba64c4a02c488429",
+					"75ea396d0c8b48098e31dccf8b5801d3"
+				],
+				"localIdentifier": "dim_0",
+				"sorting": [
+					{
+						"attribute": {
+							"attributeIdentifier": "7a4045fd00ac44579f52406df679435f",
+							"sortType": "DEFAULT"
+						}
+					}
+				]
+			},
+			{
+				"itemIdentifiers": [
+					"6456e7096f2e4eaba59a0e6f531c1d81",
+					"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+					"measureGroup"
+				],
+				"localIdentifier": "dim_1"
+			}
+		],
+		"totals": [
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_6a003ffd14994237ba64c4a02c488429_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"6456e7096f2e4eaba59a0e6f531c1d81",
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"6456e7096f2e4eaba59a0e6f531c1d81",
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_avg_08d8346c1ce7438994b251991c0fbf65_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"6456e7096f2e4eaba59a0e6f531c1d81",
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_6456e7096f2e4eaba59a0e6f531c1d81_1",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f",
+							"6a003ffd14994237ba64c4a02c488429",
+							"75ea396d0c8b48098e31dccf8b5801d3"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_avg_08d8346c1ce7438994b251991c0fbf65_by_6456e7096f2e4eaba59a0e6f531c1d81_1",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f",
+							"6a003ffd14994237ba64c4a02c488429",
+							"75ea396d0c8b48098e31dccf8b5801d3"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "subtotal_column_sum_b2350c06688b4da9b3833ebcce65527f_by_6a003ffd14994237ba64c4a02c488429_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_of_totals_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_1",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_of_totals_avg_08d8346c1ce7438994b251991c0fbf65_by_7a4045fd00ac44579f52406df679435f_2",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			}
+		]
+	},
+	"settings": {}
+}
+
+// two row-level grand totals (SUM and AVG), two col-level grand totals (SUM and AVG), one row-level running total (SUM), and two col-level running totals (SUM for both col attrs) + two more col attr
+{
+	"execution": {
+		"attributes": [
+			{
+				"label": {
+					"identifier": {
+						"id": "customer_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "7a4045fd00ac44579f52406df679435f"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "products.category",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6a003ffd14994237ba64c4a02c488429"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "product_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "75ea396d0c8b48098e31dccf8b5801d3"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "region",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6456e7096f2e4eaba59a0e6f531c1d81"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "state",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "a0b3aca54a2c43a9bb5d6d4f8d700cfc"
+			}
+		],
+		"auxMeasures": [],
+		"filters": [
+			{
+				"relativeDateFilter": {
+					"dataset": {
+						"identifier": {
+							"id": "date",
+							"type": "dataset"
+						}
+					},
+					"from": 0,
+					"granularity": "YEAR",
+					"to": 0
+				}
+			}
+		],
+		"measures": [
+			{
+				"alias": "% Revenue per Product",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "percent_revenue_per_product",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "08d8346c1ce7438994b251991c0fbf65"
+			},
+			{
+				"alias": "Revenue",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "revenue",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "b2350c06688b4da9b3833ebcce65527f"
+			}
+		]
+	},
+	"resultSpec": {
+		"dimensions": [
+			{
+				"itemIdentifiers": [
+					"7a4045fd00ac44579f52406df679435f",
+					"6a003ffd14994237ba64c4a02c488429",
+					"75ea396d0c8b48098e31dccf8b5801d3"
+				],
+				"localIdentifier": "dim_0",
+				"sorting": [
+					{
+						"attribute": {
+							"attributeIdentifier": "7a4045fd00ac44579f52406df679435f",
+							"sortType": "DEFAULT"
+						}
+					}
+				]
+			},
+			{
+				"itemIdentifiers": [
+					"6456e7096f2e4eaba59a0e6f531c1d81",
+					"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+					"measureGroup"
+				],
+				"localIdentifier": "dim_1"
+			}
+		],
+		"totals": [
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_6a003ffd14994237ba64c4a02c488429_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"6456e7096f2e4eaba59a0e6f531c1d81",
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"6456e7096f2e4eaba59a0e6f531c1d81",
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_avg_08d8346c1ce7438994b251991c0fbf65_by_7a4045fd00ac44579f52406df679435f_0",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"6456e7096f2e4eaba59a0e6f531c1d81",
+							"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_08d8346c1ce7438994b251991c0fbf65_by_a0b3aca54a2c43a9bb5d6d4f8d700cfc_1",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f",
+							"6a003ffd14994237ba64c4a02c488429",
+							"75ea396d0c8b48098e31dccf8b5801d3"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"6456e7096f2e4eaba59a0e6f531c1d81",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_6456e7096f2e4eaba59a0e6f531c1d81_1",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f",
+							"6a003ffd14994237ba64c4a02c488429",
+							"75ea396d0c8b48098e31dccf8b5801d3"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_a0b3aca54a2c43a9bb5d6d4f8d700cfc_1",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f",
+							"6a003ffd14994237ba64c4a02c488429",
+							"75ea396d0c8b48098e31dccf8b5801d3"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"6456e7096f2e4eaba59a0e6f531c1d81",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_avg_08d8346c1ce7438994b251991c0fbf65_by_6456e7096f2e4eaba59a0e6f531c1d81_1",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f",
+							"6a003ffd14994237ba64c4a02c488429",
+							"75ea396d0c8b48098e31dccf8b5801d3"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "marginal_total_sum_b2350c06688b4da9b3833ebcce65527f_by_6a003ffd14994237ba64c4a02c488429_2",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"6456e7096f2e4eaba59a0e6f531c1d81",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "marginal_total_sum_b2350c06688b4da9b3833ebcce65527f_by_6a003ffd14994237ba64c4a02c488429_3",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"6456e7096f2e4eaba59a0e6f531c1d81",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "subtotal_column_sum_b2350c06688b4da9b3833ebcce65527f_by_6a003ffd14994237ba64c4a02c488429_0",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "subtotal_row_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_1",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"6456e7096f2e4eaba59a0e6f531c1d81",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_of_totals_sum_b2350c06688b4da9b3833ebcce65527f_by_7a4045fd00ac44579f52406df679435f_1",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_of_totals_avg_08d8346c1ce7438994b251991c0fbf65_by_7a4045fd00ac44579f52406df679435f_2",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			}
+		]
+	},
+	"settings": {}
+}
+
+// two col-level grand totals (SUM and AVG), two col-level running total (SUM for both col attrs) + two more col attrs
+{
+	"execution": {
+		"attributes": [
+			{
+				"label": {
+					"identifier": {
+						"id": "customer_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "7a4045fd00ac44579f52406df679435f"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "products.category",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6a003ffd14994237ba64c4a02c488429"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "product_name",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "75ea396d0c8b48098e31dccf8b5801d3"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "region",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "6456e7096f2e4eaba59a0e6f531c1d81"
+			},
+			{
+				"label": {
+					"identifier": {
+						"id": "state",
+						"type": "label"
+					}
+				},
+				"localIdentifier": "a0b3aca54a2c43a9bb5d6d4f8d700cfc"
+			}
+		],
+		"auxMeasures": [],
+		"filters": [
+			{
+				"relativeDateFilter": {
+					"dataset": {
+						"identifier": {
+							"id": "date",
+							"type": "dataset"
+						}
+					},
+					"from": 0,
+					"granularity": "YEAR",
+					"to": 0
+				}
+			}
+		],
+		"measures": [
+			{
+				"alias": "% Revenue per Product",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "percent_revenue_per_product",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "08d8346c1ce7438994b251991c0fbf65"
+			},
+			{
+				"alias": "Revenue",
+				"definition": {
+					"measure": {
+						"item": {
+							"identifier": {
+								"id": "revenue",
+								"type": "metric"
+							}
+						}
+					}
+				},
+				"localIdentifier": "b2350c06688b4da9b3833ebcce65527f"
+			}
+		]
+	},
+	"resultSpec": {
+		"dimensions": [
+			{
+				"itemIdentifiers": [
+					"7a4045fd00ac44579f52406df679435f",
+					"6a003ffd14994237ba64c4a02c488429",
+					"75ea396d0c8b48098e31dccf8b5801d3"
+				],
+				"localIdentifier": "dim_0",
+				"sorting": [
+					{
+						"attribute": {
+							"attributeIdentifier": "7a4045fd00ac44579f52406df679435f",
+							"sortType": "DEFAULT"
+						}
+					}
+				]
+			},
+			{
+				"itemIdentifiers": [
+					"6456e7096f2e4eaba59a0e6f531c1d81",
+					"a0b3aca54a2c43a9bb5d6d4f8d700cfc",
+					"measureGroup"
+				],
+				"localIdentifier": "dim_1"
+			}
+		],
+		"totals": [
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_08d8346c1ce7438994b251991c0fbf65_by_a0b3aca54a2c43a9bb5d6d4f8d700cfc_1",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f",
+							"6a003ffd14994237ba64c4a02c488429",
+							"75ea396d0c8b48098e31dccf8b5801d3"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"6456e7096f2e4eaba59a0e6f531c1d81",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_6456e7096f2e4eaba59a0e6f531c1d81_1",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f",
+							"6a003ffd14994237ba64c4a02c488429",
+							"75ea396d0c8b48098e31dccf8b5801d3"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "SUM",
+				"localIdentifier": "total_sum_b2350c06688b4da9b3833ebcce65527f_by_a0b3aca54a2c43a9bb5d6d4f8d700cfc_1",
+				"metric": "b2350c06688b4da9b3833ebcce65527f",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f",
+							"6a003ffd14994237ba64c4a02c488429",
+							"75ea396d0c8b48098e31dccf8b5801d3"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"6456e7096f2e4eaba59a0e6f531c1d81",
+							"measureGroup"
+						]
+					}
+				]
+			},
+			{
+				"function": "AVG",
+				"localIdentifier": "total_avg_08d8346c1ce7438994b251991c0fbf65_by_6456e7096f2e4eaba59a0e6f531c1d81_1",
+				"metric": "08d8346c1ce7438994b251991c0fbf65",
+				"totalDimensions": [
+					{
+						"dimensionIdentifier": "dim_0",
+						"totalDimensionItems": [
+							"7a4045fd00ac44579f52406df679435f",
+							"6a003ffd14994237ba64c4a02c488429",
+							"75ea396d0c8b48098e31dccf8b5801d3"
+						]
+					},
+					{
+						"dimensionIdentifier": "dim_1",
+						"totalDimensionItems": [
+							"measureGroup"
+						]
+					}
+				]
+			}
+		]
+	},
+	"settings": {}
+}
+
