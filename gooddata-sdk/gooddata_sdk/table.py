@@ -4,7 +4,8 @@ from __future__ import annotations
 from operator import attrgetter
 from typing import Any, Generator, List, Optional, Union
 
-from attrs import frozen
+from attrs import define, field, frozen
+from attrs.setters import frozen as frozen_attr
 
 from gooddata_sdk.client import GoodDataApiClient
 from gooddata_sdk.compute.model.attribute import Attribute
@@ -293,118 +294,150 @@ def _convert_total_dimensions(
     return total_dims
 
 
+@define
+class TotalsComputeInfo:
+    row_attr_ids: List[str] = field(on_setattr=frozen_attr)
+    col_attr_ids: List[str] = field(on_setattr=frozen_attr)
+    measure_group_rows: List[str] = field(on_setattr=frozen_attr)
+    measure_group_cols: List[str] = field(on_setattr=frozen_attr)
+    has_row_and_column_grand_totals: bool = False
+    has_row_and_column_sub_totals: bool = False
+    has_row_subtotal_and_column_grand_total: bool = False
+    has_column_subtotal_and_row_grand_total: bool = False
+    row_dimension_index: int = 0
+    column_dimension_index: int = 0
+    row_subtotal_dimension_index: int = 0
+    column_subtotal_dimension_index: int = 0
+
+    def reset_to_defaults(self) -> None:
+        self.has_row_and_column_grand_totals = False
+        self.has_row_and_column_sub_totals = False
+        self.has_row_subtotal_and_column_grand_total = False
+        self.has_column_subtotal_and_row_grand_total = False
+        self.row_dimension_index = 0
+        self.column_dimension_index = 0
+        self.row_subtotal_dimension_index = 0
+        self.column_subtotal_dimension_index = 0
+
+
 def _get_additional_totals(insight: Insight, dimensions: list[TableDimension]) -> list[TotalDefinition]:
     totals: list[TotalDefinition] = []
     row_bucket = insight.get_bucket_of_type(BucketType.ROWS)
     col_bucket = insight.get_bucket_of_type(BucketType.COLS)
-    row_attr_ids = [a.local_id for a in row_bucket.attributes]
-    col_attr_ids = [a.local_id for a in col_bucket.attributes]
-    measure_group_rows = [_MEASURE_GROUP_IDENTIFIER] if _MEASURE_GROUP_IDENTIFIER in dimensions[0].item_ids else []
-    measure_group_cols = [_MEASURE_GROUP_IDENTIFIER] if _MEASURE_GROUP_IDENTIFIER in dimensions[1].item_ids else []
+
+    tci = TotalsComputeInfo(
+        row_attr_ids=[a.local_id for a in row_bucket.attributes],
+        col_attr_ids=[a.local_id for a in col_bucket.attributes],
+        measure_group_rows=[_MEASURE_GROUP_IDENTIFIER] if _MEASURE_GROUP_IDENTIFIER in dimensions[0].item_ids else [],
+        measure_group_cols=[_MEASURE_GROUP_IDENTIFIER] if _MEASURE_GROUP_IDENTIFIER in dimensions[1].item_ids else [],
+    )
     for row_index, row_total in enumerate(row_bucket.totals):
-        has_row_and_column_grand_totals = False
-        has_row_and_column_sub_totals = False
-        has_row_subtotal_and_column_grand_total = False
-        has_column_subtotal_and_row_grand_total = False
-        row_dimension_index = 0
-        column_dimension_index = 0
-        row_subtotal_dimension_index = 0
-        column_subtotal_dimension_index = 0
+        tci.reset_to_defaults()
         for col_index, col_total in enumerate(col_bucket.totals):
             # Check for totals from same measure and type
+            # TODO: This might also be extractable/simplifiable
             if row_total.measure_id == col_total.measure_id and row_total.type == col_total.type:
                 # Check for grand totals rows/columns
                 # Grand total is always defined on the very first attribute of the attribute/columns bucket
-                if row_total.attribute_id == row_attr_ids[0] and col_total.attribute_id == col_attr_ids[0]:
-                    has_row_and_column_grand_totals = True
+                if row_total.attribute_id == tci.row_attr_ids[0] and col_total.attribute_id == tci.col_attr_ids[0]:
+                    tci.has_row_and_column_grand_totals = True
 
                 # Check for subtotals rows/columns
-                if row_total.attribute_id != row_attr_ids[0] and col_total.attribute_id != col_attr_ids[0]:
-                    row_dimension_index = row_attr_ids.index(row_total.attribute_id)
-                    column_dimension_index = col_attr_ids.index(col_total.attribute_id)
-                    has_row_and_column_sub_totals = True
+                if row_total.attribute_id != tci.row_attr_ids[0] and col_total.attribute_id != tci.col_attr_ids[0]:
+                    tci.has_row_and_column_sub_totals = True
+                    tci.row_dimension_index = tci.row_attr_ids.index(row_total.attribute_id)
+                    tci.column_dimension_index = tci.col_attr_ids.index(col_total.attribute_id)
 
                 # Check for rows subtotals within columns grand totals
-                if row_total.attribute_id != row_attr_ids[0] and col_total.attribute_id == col_attr_ids[0]:
-                    has_row_subtotal_and_column_grand_total = True
-                    row_subtotal_dimension_index = row_attr_ids.index(row_total.attribute_id)
+                if row_total.attribute_id != tci.row_attr_ids[0] and col_total.attribute_id == tci.col_attr_ids[0]:
+                    tci.has_row_subtotal_and_column_grand_total = True
+                    tci.row_subtotal_dimension_index = tci.row_attr_ids.index(row_total.attribute_id)
 
                 # Check for columns subtotals within rows grand totals
-                if row_total.attribute_id == row_attr_ids[0] and col_total.attribute_id != col_attr_ids[0]:
-                    has_column_subtotal_and_row_grand_total = True
-                    column_subtotal_dimension_index = col_attr_ids.index(col_total.attribute_id)
+                if row_total.attribute_id == tci.row_attr_ids[0] and col_total.attribute_id != tci.col_attr_ids[0]:
+                    tci.has_column_subtotal_and_row_grand_total = True
+                    tci.column_subtotal_dimension_index = tci.col_attr_ids.index(col_total.attribute_id)
 
-            # Extend marginal totals payload
-            if has_row_and_column_sub_totals:
-                totals.append(
-                    TotalDefinition(
-                        local_id=_marginal_total_local_identifier(row_total, col_index),
-                        aggregation=row_total.type,
-                        metric_local_id=row_total.measure_id,
-                        total_dims=[
-                            TotalDimension(
-                                idx=0,
-                                items=row_attr_ids[:row_dimension_index] + measure_group_rows,
-                            ),
-                            TotalDimension(
-                                idx=1,
-                                items=col_attr_ids[:column_dimension_index] + measure_group_cols,
-                            ),
-                        ],
-                    )
-                )
+            if tci.has_row_and_column_sub_totals:
+                totals.append(_extend_marginal_totals(col_index, tci.row_attr_ids, row_total, tci))
 
-        # Extend marginal totals of rows within column grand totals payload
-        if has_row_subtotal_and_column_grand_total:
-            totals.append(
-                TotalDefinition(
-                    local_id=_sub_total_column_local_identifier(row_total, row_index),
-                    aggregation=row_total.type,
-                    metric_local_id=row_total.measure_id,
-                    total_dims=[
-                        TotalDimension(
-                            idx=0,
-                            items=row_attr_ids[:row_subtotal_dimension_index] + measure_group_rows,
-                        ),
-                        TotalDimension(
-                            idx=1,
-                            items=measure_group_cols,
-                        ),
-                    ],
-                )
-            )
+        if tci.has_row_subtotal_and_column_grand_total:
+            totals.append(_extend_marginal_totals_of_rows(row_index, row_total, tci))
 
-        # Extend marginal of columns within rows grand totals payload
-        if has_column_subtotal_and_row_grand_total:
-            row_dim = [TotalDimension(idx=0, items=measure_group_rows)] if measure_group_rows else []
-            col_dim = [
-                TotalDimension(
-                    idx=1,
-                    items=col_attr_ids[:column_subtotal_dimension_index] + measure_group_cols,
-                )
-            ]
-            totals.append(
-                TotalDefinition(
-                    local_id=_sub_total_row_local_identifier(row_total, row_index),
-                    aggregation=row_total.type,
-                    metric_local_id=row_total.measure_id,
-                    total_dims=row_dim + col_dim,
-                )
-            )
+        if tci.has_column_subtotal_and_row_grand_total:
+            totals.append(_extend_marginal_totals_of_cols(row_index, row_total, tci))
 
-        # Extend grand totals payload
-        if has_row_and_column_grand_totals:
-            row_dim = [TotalDimension(idx=0, items=measure_group_rows)] if measure_group_rows else []
-            col_dim = [TotalDimension(idx=1, items=measure_group_cols)] if measure_group_cols else []
-            totals.append(
-                TotalDefinition(
-                    local_id=_grand_total_local_identifier(row_total, row_index),
-                    aggregation=row_total.type,
-                    metric_local_id=row_total.measure_id,
-                    total_dims=row_dim + col_dim,
-                )
-            )
+        if tci.has_row_and_column_grand_totals:
+            totals.append(_extend_grand_totals(row_index, row_total, tci))
+
     return totals
+
+
+def _extend_grand_totals(row_index: int, row_total: InsightTotal, tci: TotalsComputeInfo):
+    # Extend grand totals payload
+    row_dim = [TotalDimension(idx=0, items=tci.measure_group_rows)] if tci.measure_group_rows else []
+    col_dim = [TotalDimension(idx=1, items=tci.measure_group_cols)] if tci.measure_group_cols else []
+    return TotalDefinition(
+        local_id=_grand_total_local_identifier(row_total, row_index),
+        aggregation=row_total.type,
+        metric_local_id=row_total.measure_id,
+        total_dims=row_dim + col_dim,
+    )
+
+
+def _extend_marginal_totals_of_cols(row_index: int, row_total: InsightTotal, tci: TotalsComputeInfo):
+    # Extend marginal of columns within rows grand totals payload
+    row_dim = [TotalDimension(idx=0, items=tci.measure_group_rows)] if tci.measure_group_rows else []
+    col_dim = [
+        TotalDimension(
+            idx=1,
+            items=tci.col_attr_ids[: tci.column_subtotal_dimension_index] + tci.measure_group_cols,
+        )
+    ]
+    return TotalDefinition(
+        local_id=_sub_total_row_local_identifier(row_total, row_index),
+        aggregation=row_total.type,
+        metric_local_id=row_total.measure_id,
+        total_dims=row_dim + col_dim,
+    )
+
+
+def _extend_marginal_totals_of_rows(row_index: int, row_total: InsightTotal, tci: TotalsComputeInfo):
+    # Extend marginal totals of rows within column grand totals payload
+    return TotalDefinition(
+        local_id=_sub_total_column_local_identifier(row_total, row_index),
+        aggregation=row_total.type,
+        metric_local_id=row_total.measure_id,
+        total_dims=[
+            TotalDimension(
+                idx=0,
+                items=tci.row_attr_ids[: tci.row_subtotal_dimension_index] + tci.measure_group_rows,
+            ),
+            TotalDimension(
+                idx=1,
+                items=tci.measure_group_cols,
+            ),
+        ],
+    )
+
+
+def _extend_marginal_totals(col_index: int, row_total: InsightTotal, tci: TotalsComputeInfo):
+    # Extend marginal totals payload
+    return TotalDefinition(
+        local_id=_marginal_total_local_identifier(row_total, col_index),
+        aggregation=row_total.type,
+        metric_local_id=row_total.measure_id,
+        total_dims=[
+            TotalDimension(
+                idx=0,
+                items=tci.row_attr_ids[: tci.row_dimension_index] + tci.measure_group_rows,
+            ),
+            TotalDimension(
+                idx=1,
+                items=tci.col_attr_ids[: tci.column_dimension_index] + tci.measure_group_cols,
+            ),
+        ],
+    )
 
 
 def _get_computable_totals(insight: Insight, dimensions: list[TableDimension]) -> list[TotalDefinition]:
